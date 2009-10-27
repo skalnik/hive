@@ -32,6 +32,7 @@ get '/entries/:id' do
 end
 
 post '/entries' do
-  @entry = Entry.new(params)
-  redirect_to "entries/#{params[:id]}"
+  entry = Entry.new(params)
+  entry.save!
+  redirect "entries/#{entry.id}"
 end
