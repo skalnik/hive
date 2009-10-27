@@ -20,3 +20,16 @@ end
   end
 end
 
+get '/entries/:id' do
+  @entry = Entry.first(params[:id])
+  haml :show
+end
+
+get '/entries/new' do
+  haml :new
+end
+
+post '/entries' do
+  @entry = Entry.new(params)
+  redirect_to "entries/#{params[:id]}"
+end

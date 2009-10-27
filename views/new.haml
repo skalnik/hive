@@ -1,0 +1,10 @@
+%h1 The Hive
+%h2 New Entry
+%form{:action => '/entries', :method => 'post'}
+  %p
+    %label{:for => 'title'}Title:
+    %input{:name => 'title', :id => 'title'}
+  %p
+    %textarea{:name => 'content'}
+  %p
+    %input{:type => 'submit', :value => 'Create'}
