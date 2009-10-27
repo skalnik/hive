@@ -1,17 +1,19 @@
 require 'rubygems'
 require 'sinatra'
-require 'mongomapper'
+require 'mongo_mapper'
 require 'haml'
 require 'yaml'
+require 'models/entry'
 
 configure do
   config = YAML::load_file('config.yml')
-  MongoMapper.connection = XGen::Mongo::Driver::Connection.new(config['database']['host'])
+  MongoMapper.connection = Mongo::Connection.new(config['database']['host'])
   MongoMapper.database = config['database']['name']
+  MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
 end
 
 get '/' do
-  @entries = Entries.all( :order => 'created_at DESC' )
+  @entries = Entry.all( :order => 'created_at DESC' )
   haml :index
 end
 
