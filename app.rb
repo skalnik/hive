@@ -12,8 +12,11 @@ configure do
   MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
 end
 
-get '/' do
-  @entries = Entry.all( :order => 'created_at DESC' )
-  haml :index
+
+['/', '/entries'].each do |path|
+  get path do
+    @entries = Entry.all( :order => 'created_at DESC' )
+    haml :index
+  end
 end
 
