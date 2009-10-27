@@ -9,7 +9,7 @@ end
 namespace :hive do
   desc "Start The Hive for development"
   task :start do
-    system "shotgun config.ru"
+    system "shotgun app.rb"
   end
 end
 
