@@ -2,4 +2,6 @@
 - @entries.each do |entry|
   - if entry.title
     %h2= entry.title
+  - elsif entry.source
+    %h2= entry.source
   %p= entry.content
