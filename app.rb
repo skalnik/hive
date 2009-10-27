@@ -20,13 +20,13 @@ end
   end
 end
 
-get '/entries/:id' do
-  @entry = Entry.first(params[:id])
-  haml :show
-end
-
 get '/entries/new' do
   haml :new
+end
+
+get '/entries/:id' do
+  @entry = Entry.find(params[:id])
+  haml :show
 end
 
 post '/entries' do
