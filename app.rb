@@ -9,7 +9,9 @@ configure do
   config = YAML::load_file('config.yml')
   MongoMapper.connection = Mongo::Connection.new(config['database']['host'])
   MongoMapper.database = config['database']['name']
-  MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
+  if config['database']['username']
+    MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
+  end
 end
 
 

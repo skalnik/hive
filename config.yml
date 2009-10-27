@@ -1,5 +1,3 @@
 database:
   host: localhost
   name: hive
-  username: username
-  password: password
