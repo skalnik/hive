@@ -4,9 +4,8 @@ require 'mongo_mapper'
 require 'haml'
 require 'yaml'
 require 'sinatra/authorization'
-gem('twitter4r', '0.3.2')
-require 'twitter'
 require 'models/entry'
+Dir['lib/*'].each { |lib| require lib }
 
 configure do
   config = YAML::load_file('config.yml')
@@ -30,15 +29,7 @@ helpers do
   end
 
   def fetch_tweets
-    client = Twitter::Client.new
-    status = client.timeline_for(:user, :id => @@twitter_username)
-    tweets = []
-    status.each do |tweet|
-      twt = {:content => tweet.text, :source => 'Twitter',
-             :link => "http://twitter.com/#{@@twitter_username}/status/#{tweet.id}"}
-      tweets << twt
-    end
-    return tweets
+    tweets(@@twitter_username)
   end
 end
 
@@ -54,11 +45,6 @@ get '/entries/new' do
   haml :new
 end
 
-get '/entries/:id' do
-  @entry = Entry.find(params[:id])
-  haml :show
-end
-
 post '/entries' do
   login_required
   entry = Entry.new(params)
@@ -66,14 +52,8 @@ post '/entries' do
   redirect "entries/#{entry.id}"
 end
 
-get '/fetch_tweets' do
-  tweets = fetch_tweets
-  puts tweets.inspect
-  tweets.each do |tweet|
-    unless Entry.count(tweet) > 0
-      entry = Entry.new(tweet)
-      entry.save!
-    end
-  end
-  redirect '/'
+get '/entries/:id' do
+  @entry = Entry.find(params[:id])
+  haml :show
 end
+
