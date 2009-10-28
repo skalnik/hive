@@ -1,8 +1,12 @@
 %h1 The Hive
 - @entries.each do |entry|
-  - if entry.title
+  - if entry.respond_to?(:title) and entry.title
     %h2
       %a{:href => "/entries/#{entry.id}"}= entry.title
   - elsif entry.source
-    %h2= entry.source
+    %h2
+      - if entry.link
+        %a{:href => entry.link}= entry.source
+      - else
+        = entry.source
   %p= entry.content
