@@ -1,3 +1,6 @@
 database:
   host: localhost
   name: hive
+site:
+  username: admin
+  password: admin

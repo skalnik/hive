@@ -3,6 +3,7 @@ require 'sinatra'
 require 'mongo_mapper'
 require 'haml'
 require 'yaml'
+require 'sinatra/authorization'
 require 'models/entry'
 
 configure do
@@ -12,8 +13,19 @@ configure do
   if config['database']['username']
     MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
   end
+
+  @@username, @@password = config['site']['username'], config['site']['password']
 end
 
+helpers do
+  def authorize(username, password)
+    [username, password] == [@@username, @@password]
+  end
+
+  def authorization_realm
+    "Protected zone"
+  end
+end
 
 ['/', '/entries'].each do |path|
   get path do
@@ -23,6 +35,7 @@ end
 end
 
 get '/entries/new' do
+  login_required
   haml :new
 end
 
