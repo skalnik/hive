@@ -60,6 +60,7 @@ get '/entries/:id' do
 end
 
 post '/entries' do
+  login_required
   entry = Entry.new(params)
   entry.save!
   redirect "entries/#{entry.id}"
