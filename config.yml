@@ -4,3 +4,5 @@ database:
 site:
   username: admin
   password: admin
+twitter:
+  username: tweetless_pal

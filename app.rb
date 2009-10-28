@@ -4,6 +4,7 @@ require 'mongo_mapper'
 require 'haml'
 require 'yaml'
 require 'sinatra/authorization'
+require 'twitter'
 require 'models/entry'
 
 configure do
@@ -15,6 +16,7 @@ configure do
   end
 
   @@username, @@password = config['site']['username'], config['site']['password']
+  @@twitter_username = config['twitter']['username']
 end
 
 helpers do
@@ -24,6 +26,11 @@ helpers do
 
   def authorization_realm
     "Protected zone"
+  end
+
+  def fetch_tweets
+    client = Twitter::Client.new
+    client.timeline_for(:user, @@twitter_username)
   end
 end
 
