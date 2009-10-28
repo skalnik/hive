@@ -30,7 +30,14 @@ helpers do
 
   def fetch_tweets
     client = Twitter::Client.new
-    client.timeline_for(:user, @@twitter_username)
+    status = client.timeline_for(:user, :id => @@twitter_username)
+    tweets = []
+    status.each do |tweet|
+      twt = {:content => tweet.text, :source => 'Twitter',
+             :link => "http://twitter.com/#{@@twitter_username}/status/#{tweet.id}"}
+      tweets << twt
+    end
+    return tweets
   end
 end
 
@@ -55,4 +62,16 @@ post '/entries' do
   entry = Entry.new(params)
   entry.save!
   redirect "entries/#{entry.id}"
+end
+
+get '/fetch_tweets' do
+  tweets = fetch_tweets
+  puts tweets.inspect
+  tweets.each do |tweet|
+    unless Entry.count(tweet) > 0
+      entry = Entry.new(tweet)
+      entry.save!
+    end
+  end
+  redirect '/'
 end
