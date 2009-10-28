@@ -4,6 +4,7 @@ require 'mongo_mapper'
 require 'haml'
 require 'yaml'
 require 'sinatra/authorization'
+gem('twitter4r', '0.3.2')
 require 'twitter'
 require 'models/entry'
 
