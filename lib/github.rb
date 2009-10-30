@@ -28,7 +28,6 @@ get '/fetch_github_activity' do
     unless Entry.count(act) > 0
       entry = Entry.new(act)
       entry.save!
-      sleep 1 
     end
   end
   redirect '/'
