@@ -1,6 +1,6 @@
 %h1 The Hive
 - @entries.each do |entry|
-  - if entry.source.nil?
+  - if not entry.respond_to? :source
     %h2
       %a{:href => "/entries/#{entry.id}"}= entry.title
   - elsif entry.source.eql? 'Github'
