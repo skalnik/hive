@@ -1,12 +1,13 @@
 %h1 The Hive
 - @entries.each do |entry|
-  - if entry.respond_to?(:title) and entry.title
+  - if entry.source.nil?
     %h2
       %a{:href => "/entries/#{entry.id}"}= entry.title
-  - elsif entry.source
+  - elsif entry.source.eql? 'Github'
     %h2
-      - if entry.link
-        %a{:href => entry.link}= entry.source
-      - else
-        = entry.source
+      %a{:href => entry.link}= "#{entry.title}"
+  - elsif entry.source.eql? 'Twitter'
+    %h2
+      %a{:href => entry.link} Tweet
   %p= entry.content
+
