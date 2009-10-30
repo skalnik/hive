@@ -16,7 +16,8 @@ configure do
   end
 
   @@username, @@password = config['site']['username'], config['site']['password']
-  @@twitter_username = config['twitter']['username']
+  @@twitter_username = config['twitter']['username'] if config['twitter']
+  @@github_username = config['github']['username'] if config['github']
 end
 
 helpers do
@@ -31,11 +32,15 @@ helpers do
   def fetch_tweets
     tweets(@@twitter_username)
   end
+
+  def fetch_github_activity
+    github_activity(@@github_username)
+  end
 end
 
 ['/', '/entries'].each do |path|
   get path do
-    @entries = Entry.all( :order => 'created_at DESC' )
+    @entries = Entry.all( :order => 'published DESC' )
     haml :index
   end
 end
@@ -47,6 +52,7 @@ end
 
 post '/entries' do
   login_required
+  params[:published] = Time.now if params[:draft]
   entry = Entry.new(params)
   entry.save!
   redirect "entries/#{entry.id}"
