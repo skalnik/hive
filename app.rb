@@ -52,7 +52,7 @@ end
 
 post '/entries' do
   login_required
-  params[:published] = Time.now if params[:draft]
+  params[:published] = Time.now unless params[:draft].eql? 'on'
   entry = Entry.new(params)
   entry.save!
   redirect "entries/#{entry.id}"
