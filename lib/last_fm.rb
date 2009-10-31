@@ -7,6 +7,7 @@ helpers do
     tracks_feed = SimpleRSS.parse open(url)
     tracks = []
     tracks_feed.items.each do |track|
+      next if (Time.now - track.pubDate) < 200 # Skip if 200 seconds haven't elapsed, duplicate killer
       formatted_track = {:content => clean(track.title), :link => track.link, 
                          :published => track.pubDate, :source => 'Last.fm'}
       tracks << formatted_track
