@@ -55,11 +55,6 @@ get '/entries/new' do
   haml :new
 end
 
-get '/posts' do
-  @entries = Entry.all(:conditions => { :source => nil }, :order => 'published DESC')
-  haml :index
-end
-
 post '/entries' do
   login_required
   params[:published] = Time.now unless params[:draft].eql? 'on'
