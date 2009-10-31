@@ -29,12 +29,12 @@ helpers do
     "Protected zone"
   end
 
-  def fetch_tweets
-    tweets(@@twitter_username)
+  def twitter_username
+    @@twitter_username
   end
 
-  def fetch_github_activity
-    github_activity(@@github_username)
+  def github_username
+    @@github_username
   end
 end
 

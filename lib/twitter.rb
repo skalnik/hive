@@ -2,9 +2,9 @@ gem('twitter4r', '0.3.2')
 require 'twitter'
 
 helpers do
-  def tweets(username)
+  def fetch_tweets
     client = Twitter::Client.new
-    status = client.timeline_for(:user, :id => username)
+    status = client.timeline_for(:user, :id => twitter_username)
     tweets = []
     status.each do |tweet|
       twt = {:content => tweet.text, :source => 'Twitter', :published => tweet.created_at,

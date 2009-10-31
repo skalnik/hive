@@ -2,8 +2,8 @@ require 'simple-rss'
 require 'open-uri'
 
 helpers do
-  def github_activity(username)
-    url = "http://github.com/#{username}.atom"
+  def fetch_github_activity
+    url = "http://github.com/#{github_username}.atom"
     activity_feed = SimpleRSS.parse open(url)
     activity = []
     activity_feed.items.each do |act|
