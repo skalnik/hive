@@ -1,12 +1,12 @@
-database:
-  host: localhost
-  name: hive
-site:
-  username: admin
-  password: admin
-twitter:
-  username: tweetless_pal
-github:
-  username: skalnik
-last_fm:
-  username: mskalnik
+:database:
+  :host: localhost
+  :name: hive
+:site:
+  :username: admin
+  :password: admin
+:twitter:
+  :username: tweetless_pal
+:github:
+  :username: skalnik
+:last_fm:
+  :username: mskalnik

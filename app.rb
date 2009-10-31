@@ -9,16 +9,16 @@ Dir['lib/*'].each { |lib| require lib }
 
 configure do
   config = YAML::load_file('config.yml')
-  MongoMapper.connection = Mongo::Connection.new(config['database']['host'])
-  MongoMapper.database = config['database']['name']
-  if config['database']['username']
-    MongoMapper.database.authenticate(config['database']['username'], config['database']['password'])
+  MongoMapper.connection = Mongo::Connection.new(config[:database][:host])
+  MongoMapper.database = config[:database][:name]
+  if config[:database][:username]
+    MongoMapper.database.authenticate(config[:database][:username], config[:database][:password])
   end
 
-  @@username, @@password = config['site']['username'], config['site']['password']
-  @@twitter_username = config['twitter']['username'] if config['twitter']
-  @@github_username = config['github']['username'] if config['github']
-  @@last_fm_username = config['last_fm']['username'] if config['last_fm']
+  @@username, @@password = config[:site][:username], config[:site][:password]
+  @@twitter_username = config[:twitter][:username] if config[:twitter]
+  @@github_username = config[:github][:username] if config[:github]
+  @@last_fm_username = config[:last_fm][:username] if config[:last_fm]
 end
 
 helpers do
