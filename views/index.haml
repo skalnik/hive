@@ -11,5 +11,8 @@
     - elsif entry.source.eql? 'Twitter'
       %h2
         %a{:href => entry.link} Tweet
+    - elsif entry.source.eql? 'Last.fm'
+      %h2
+        %a{:href => entry.link} Just listened to 
     %p= entry.content
 
