@@ -14,7 +14,7 @@ helpers do
   end
 end
 
-get '/fetch_last_fm_activity' do
+get '/fetch_last_fm_tracks' do
   tracks = fetch_last_fm_tracks
   tracks.each do |track|
     unless Entry.count(track) > 0
