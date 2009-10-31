@@ -9,4 +9,5 @@ get '/fetch_all' do
       entry.save!
     end
   end
+  redirect '/'
 end
