@@ -18,6 +18,7 @@ configure do
   @@username, @@password = config['site']['username'], config['site']['password']
   @@twitter_username = config['twitter']['username'] if config['twitter']
   @@github_username = config['github']['username'] if config['github']
+  @@last_fm_username = config['last_fm']['username'] if config['last_fm']
 end
 
 helpers do
@@ -35,6 +36,10 @@ helpers do
 
   def github_username
     @@github_username
+  end
+
+  def last_fm_username
+    @@last_fm_username
   end
 end
 
