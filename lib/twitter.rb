@@ -8,7 +8,7 @@ helpers do
     tweets = []
     status.each do |tweet|
       twt = {:content => tweet.text, :source => 'Twitter', :published => tweet.created_at,
-             :link => "http://twitter.com/#{username}/status/#{tweet.id}"}
+             :link => "http://twitter.com/#{twitter_username}/status/#{tweet.id}"}
       tweets << twt
     end
     return tweets
