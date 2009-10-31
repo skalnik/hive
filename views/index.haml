@@ -1,18 +1,18 @@
 %h1 The Hive
 - @entries.each do |entry|
-  - if (not entry.respond_to? :source) and (not entry.respond_to? :published)
-    %h2
-      %a{:href => "/entries/#{entry.id}"}= entry.title
-    %p= entry.content
-  - elsif entry.respond_to? :source
-    - if entry.source.eql? 'Github'
-      %h2
-        %a{:href => entry.link}= "#{entry.title}"
-    - elsif entry.source.eql? 'Twitter'
-      %h2
-        %a{:href => entry.link} Tweet
-    - elsif entry.source.eql? 'Last.fm'
-      %h2
-        %a{:href => entry.link} Just listened to 
-    %p= entry.content
+  %div.entry
+    - if (not entry.respond_to? :source) and (not entry.respond_to? :published)
+      %h3.title
+        %a{:href => "/entries/#{entry.id}"}= entry.title
+      %p.content= entry.content
+    - elsif entry.respond_to? :source
+      %h3.title
+        %a{:href => entry.link}
+          - if entry.source.eql? 'Github'
+            = entry.title
+          - elsif entry.source.eql? 'Twitter'
+            Tweet
+          - elsif entry.source.eql? 'Last.fm'
+            Just listened to
+      %p.content= entry.content
 
