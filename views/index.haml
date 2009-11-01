@@ -1,6 +1,6 @@
 %h1 The Hive
 - @entries.each do |entry|
-  %div.entry
+  .entry
     - if (not entry.respond_to? :source) and (not entry.respond_to? :published)
       %h3.title
         %a{:href => "/entries/#{entry.id}"}= entry.title
