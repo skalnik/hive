@@ -41,6 +41,10 @@ helpers do
   def last_fm_username
     @@last_fm_username
   end
+
+  def format_time(time)
+    time.localtime.strftime("%a %b %d %I:%M %p")
+  end
 end
 
 ['/', '/entries'].each do |path|

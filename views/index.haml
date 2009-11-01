@@ -14,5 +14,9 @@
             Tweet
           - elsif entry.source.eql? 'Last.fm'
             Just listened to
+        %span.at
+          @
+        %span.time
+          =format_time entry.published
       %p.content= entry.content
 
