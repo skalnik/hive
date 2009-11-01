@@ -7,7 +7,7 @@
       %p.content= entry.content
     - elsif entry.respond_to? :source
       %h3.title
-        %a{:href => entry.link, :title => "View on #{entry.source}"}
+        %a{:href => entry.link, :title => "View on #{entry.source}"}<
           - if entry.source.eql? 'Github'
             = entry.title
           - elsif entry.source.eql? 'Twitter'
