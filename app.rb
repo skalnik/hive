@@ -45,7 +45,7 @@ end
 
 ['/', '/entries'].each do |path|
   get path do
-    @entries = Entry.all( :order => 'published DESC' )
+    @entries = Entry.all( :order => 'published DESC', :limit => 50 )
     haml :index
   end
 end
