@@ -7,8 +7,7 @@ helpers do
     activity_feed = SimpleRSS.parse open(url)
     activity = []
     activity_feed.items.each do |act|
-      formatted_act = {:title => act.title, :content => unescape(act.content), :link => act.link,
-                       :source => 'Github', :published => act.published}
+      formatted_act = {:title => act.title, :content => unescape(act.content), :link => act.link, :source => 'Github', :published => act.published}
       activity << formatted_act
     end
     return activity.reverse
