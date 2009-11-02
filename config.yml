@@ -4,6 +4,7 @@
 :site:
   :username: admin
   :password: admin
+  :time_zone: -5
 :twitter:
   :username: tweetless_pal
 :github:
