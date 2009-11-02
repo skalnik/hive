@@ -3,6 +3,7 @@ require 'sinatra'
 require 'mongo_mapper'
 require 'haml'
 require 'yaml'
+require 'time'
 require 'sinatra/authorization'
 require 'models/entry'
 Dir['lib/*'].each { |lib| require lib }
@@ -16,6 +17,7 @@ configure do
   end
 
   @@username, @@password = config[:site][:username], config[:site][:password]
+  @@time_zone = config[:site][:time_zone]
   @@twitter_username = config[:twitter][:username] if config[:twitter]
   @@github_username = config[:github][:username] if config[:github]
   @@last_fm_username = config[:last_fm][:username] if config[:last_fm]
@@ -42,8 +44,13 @@ helpers do
     @@last_fm_username
   end
 
+  def time_zone
+    @@time_zone
+  end
+
   def format_time(time)
-    time.localtime.strftime("%a %b %d %I:%M %p")
+    # Take GMT and add time_zone in seconds, then format & return it
+    (time.getgm + (time_zone * 3600)).strftime("%a %b %d %I:%M %p")
   end
 end
 
