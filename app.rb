@@ -4,7 +4,6 @@ require 'mongo_mapper'
 require 'haml'
 require 'yaml'
 require 'time'
-require 'exceptional'
 require 'sinatra/authorization'
 require 'models/entry'
 Dir['lib/*'].each { |lib| require lib }
@@ -16,8 +15,6 @@ configure do
   if config[:database][:username]
     MongoMapper.database.authenticate(config[:database][:username], config[:database][:password])
   end
-
-  Exceptional.api_key = config[:site][:exceptional] if config[:site][:exceptional]
 
   @@username, @@password = config[:site][:username], config[:site][:password]
   @@time_zone = config[:site][:time_zone]
