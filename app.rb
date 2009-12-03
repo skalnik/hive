@@ -4,6 +4,7 @@ require 'mongo_mapper'
 require 'haml'
 require 'yaml'
 require 'time'
+require 'exceptional'
 require 'sinatra/authorization'
 require 'models/entry'
 Dir['lib/*'].each { |lib| require lib }
@@ -15,6 +16,8 @@ configure do
   if config[:database][:username]
     MongoMapper.database.authenticate(config[:database][:username], config[:database][:password])
   end
+
+  Exceptional.api_key = config[:site][:exceptional] if config[:site][:exceptional]
 
   @@username, @@password = config[:site][:username], config[:site][:password]
   @@time_zone = config[:site][:time_zone]
@@ -52,6 +55,10 @@ helpers do
     # Take GMT and add time_zone in seconds, then format & return it
     (time.getgm + (time_zone * 3600)).strftime("%a %b %d %I:%M %p")
   end
+end
+
+error do
+	Exceptional.handle_sinatra(request.env['sinatra.error'], request.env['REQUEST_URI'], request, params)
 end
 
 ['/', '/entries'].each do |path|
