@@ -60,9 +60,14 @@ end
 
 ['/', '/entries'].each do |path|
   get path do
-    @entries = Entry.all( :order => 'published DESC', :limit => 50 )
+    @entries = Entry.paginate(:per_page => 50, :page => 1, :order => 'published DESC')
     haml :index
   end
+end
+
+get '/:page' do
+  @entries = Entry.paginate(:per_page => 50, :page => params[:page], :order => 'published DESC')
+  haml :index
 end
 
 get '/entries/new' do
