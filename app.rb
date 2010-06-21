@@ -10,7 +10,7 @@ Dir['lib/*'].each { |lib| require lib }
 
 configure do
   config = YAML::load_file('config.yml')
-  MongoMapper.connection = Mongo::Connection.new(config[:database][:host])
+  MongoMapper.connection = Mongo::Connection.new(config[:database][:host], config[:database][:port])
   MongoMapper.database = config[:database][:name]
   if config[:database][:username]
     MongoMapper.database.authenticate(config[:database][:username], config[:database][:password])
